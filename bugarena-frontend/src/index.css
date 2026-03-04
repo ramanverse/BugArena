@@ -8,14 +8,112 @@
     --secondary-rgb: 175, 136, 255;
     --tertiary-rgb: 105, 156, 255;
     --error-rgb: 255, 113, 108;
+
+    /* Theme colors defaults (Dark Theme) */
+    --color-primary: #a4ffb9;
+    --color-primary-dim: #00ed7e;
+    --color-primary-fixed: #00fd87;
+    --color-primary-container: #00fd87;
+    --color-on-primary: #006532;
+    --color-on-primary-fixed: #004621;
+    --color-on-primary-container: #005b2c;
+    --color-on-primary-fixed-variant: #006632;
+
+    --color-secondary: #af88ff;
+    --color-secondary-dim: #8a4cfc;
+    --color-secondary-container: #6001d1;
+    --color-secondary-fixed: #dcc9ff;
+    --color-secondary-fixed-dim: #d0b8ff;
+    --color-on-secondary: #2b0065;
+    --color-on-secondary-container: #e1d0ff;
+    --color-on-secondary-fixed: #430097;
+    --color-on-secondary-fixed-variant: #6514d6;
+
+    --color-tertiary: #699cff;
+    --color-tertiary-dim: #699cff;
+    --color-tertiary-fixed: #8ab0ff;
+    --color-tertiary-fixed-dim: #73a2ff;
+    --color-tertiary-container: #4388fd;
+    --color-on-tertiary: #001e4a;
+    --color-on-tertiary-container: #000311;
+    --color-on-tertiary-fixed: #00163b;
+    --color-on-tertiary-fixed-variant: #00377b;
+
+    --color-background: #0e0e13;
+    --color-surface: #0e0e13;
+    --color-surface-dim: #0e0e13;
+    --color-surface-variant: #25252d;
+    --color-surface-lowest: #000000;
+    --color-surface-low: #131319;
+    --color-surface-container: #19191f;
+    --color-surface-high: #1f1f26;
+    --color-surface-highest: #25252d;
+    --color-on-surface: #f9f5fd;
+    --color-on-surface-variant: #acaab1;
+    --color-on-background: #f9f5fd;
+    --color-outline: #76747b;
+    --color-outline-variant: #48474d;
+  }
+
+  /* Light Theme Class Override */
+  .light {
+    --color-background: #f9f5fd;
+    --color-surface: #ffffff;
+    --color-surface-dim: #f1edf7;
+    --color-surface-variant: #ece7f2;
+    --color-surface-lowest: #ffffff;
+    --color-surface-low: #f5f0fb;
+    --color-surface-container: #ece7f2;
+    --color-surface-high: #e4def0;
+    --color-surface-highest: #dbd4e8;
+    --color-on-surface: #0e0e13;
+    --color-on-surface-variant: #55545b;
+    --color-on-background: #0e0e13;
+    --color-outline: #76747b;
+    --color-outline-variant: #c5c2cc;
+  }
+
+  /* Accent Theme Class Overrides */
+  .accent-sapphire {
+    --color-primary: #699cff;
+    --color-primary-dim: #4388fd;
+    --color-primary-fixed: #8ab0ff;
+    --color-primary-container: #8ab0ff;
+    --color-on-primary: #001e4a;
+    --color-on-primary-fixed: #00163b;
+    --color-on-primary-container: #00163b;
+    --color-on-primary-fixed-variant: #00377b;
+  }
+
+  .accent-amethyst {
+    --color-primary: #af88ff;
+    --color-primary-dim: #8a4cfc;
+    --color-primary-fixed: #dcc9ff;
+    --color-primary-container: #dcc9ff;
+    --color-on-primary: #2b0065;
+    --color-on-primary-fixed: #430097;
+    --color-on-primary-container: #430097;
+    --color-on-primary-fixed-variant: #6514d6;
+  }
+
+  .accent-amber {
+    --color-primary: #ffb26c;
+    --color-primary-dim: #e67e22;
+    --color-primary-fixed: #ffcc99;
+    --color-primary-container: #ffcc99;
+    --color-on-primary: #5c2d00;
+    --color-on-primary-fixed: #3d1c00;
+    --color-on-primary-container: #3d1c00;
+    --color-on-primary-fixed-variant: #5c2d00;
   }
 
   body {
-    background-color: #0e0e13;
-    color: #f9f5fd;
+    background-color: var(--color-background);
+    color: var(--color-on-surface);
     font-family: 'Inter', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    transition: background-color 0.3s ease, color 0.3s ease;
   }
 
   ::selection {
@@ -77,6 +175,10 @@
 
   /* Input field */
   .input-field {
-    @apply bg-surface-container-lowest border border-outline-variant/10 focus:border-primary/50 focus:ring-0 focus:outline-none text-sm p-3 placeholder:text-on-surface-variant/30 text-on-surface w-full rounded-none transition-colors duration-200;
+    @apply bg-surface-container-lowest border focus:ring-0 focus:outline-none text-sm p-3 text-on-surface w-full rounded-none transition-colors duration-200;
+    border-color: var(--color-outline-variant);
+  }
+  .input-field:focus {
+    border-color: var(--color-primary);
   }
 }
