@@ -6,9 +6,10 @@ import Sidebar from '../../components/layout/Sidebar'
 import PageTransition from '../../components/layout/PageTransition'
 import ConfirmModal from '../../components/ui/ConfirmModal'
 import { useAuth } from '../../hooks/useAuth'
+import { useTheme } from '../../hooks/useTheme'
 import { updateProfile, updatePassword, deleteAccount } from '../../api/user.api'
 
-const TABS = ['Profile', 'Security', 'Notifications', 'Danger Zone']
+const TABS = ['Profile', 'Security', 'Appearance', 'Notifications', 'Danger Zone']
 
 const NOTIFICATION_SETTINGS = [
   { key: 'reportUpdates', label: 'Report Status Updates', desc: 'Get notified when your report status changes' },
@@ -22,6 +23,7 @@ export default function SettingsPage() {
   const [showDeleteModal, setShowDeleteModal] = useState(false)
   const [notifs, setNotifs] = useState({ reportUpdates: true, newPrograms: true, bountyPaid: true, weeklyDigest: false })
   const { user, logout } = useAuth()
+  const { mode, accent, setMode, setAccent } = useTheme()
   const qc = useQueryClient()
 
   const { register: registerProfile, handleSubmit: handleProfile } = useForm({
@@ -143,6 +145,89 @@ export default function SettingsPage() {
                       <p className="font-mono text-[10px] text-on-surface-variant">Add an extra layer of security</p>
                     </div>
                     <span className="px-2 py-0.5 bg-outline-variant/20 text-outline-variant font-mono text-[9px] uppercase tracking-widest">Coming Soon</span>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Appearance Tab */}
+            {activeTab === 'Appearance' && (
+              <div className="space-y-8 animate-fade-in">
+                {/* Interface mode */}
+                <div>
+                  <h3 className="font-headline font-bold text-lg text-on-surface mb-1">Interface Mode</h3>
+                  <p className="font-mono text-[10px] text-on-surface-variant mb-4 uppercase tracking-widest">Select operating environment theme</p>
+                  
+                  <div className="grid grid-cols-2 gap-4">
+                    {/* Dark Mode Option */}
+                    <div
+                      onClick={() => setMode('dark')}
+                      className={`p-6 border cursor-pointer flex flex-col justify-between h-32 transition-all ${
+                        mode === 'dark'
+                          ? 'border-primary bg-primary/5'
+                          : 'border-outline-variant hover:border-on-surface-variant bg-surface-container'
+                      }`}
+                    >
+                      <div className="flex justify-between items-start">
+                        <span className="material-symbols-outlined text-on-surface text-xl">dark_mode</span>
+                        {mode === 'dark' && <span className="material-symbols-outlined text-primary text-base">check_circle</span>}
+                      </div>
+                      <div>
+                        <p className="font-mono text-sm font-bold text-on-surface">Dark Operator</p>
+                        <p className="font-mono text-[9px] text-on-surface-variant">Default low-emission terminal theme</p>
+                      </div>
+                    </div>
+
+                    {/* Light Mode Option */}
+                    <div
+                      onClick={() => setMode('light')}
+                      className={`p-6 border cursor-pointer flex flex-col justify-between h-32 transition-all ${
+                        mode === 'light'
+                          ? 'border-primary bg-primary/5'
+                          : 'border-outline-variant hover:border-on-surface-variant bg-surface-container'
+                      }`}
+                    >
+                      <div className="flex justify-between items-start">
+                        <span className="material-symbols-outlined text-on-surface text-xl">light_mode</span>
+                        {mode === 'light' && <span className="material-symbols-outlined text-primary text-base">check_circle</span>}
+                      </div>
+                      <div>
+                        <p className="font-mono text-sm font-bold text-on-surface">Light Operator</p>
+                        <p className="font-mono text-[9px] text-on-surface-variant">High-visibility daytime display</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Accent Color */}
+                <div className="border-t border-white/5 pt-6">
+                  <h3 className="font-headline font-bold text-lg text-on-surface mb-1">Color Accent</h3>
+                  <p className="font-mono text-[10px] text-on-surface-variant mb-4 uppercase tracking-widest">Choose system primary signal color</p>
+                  
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                    {[
+                      { id: 'emerald', name: 'Cyber Emerald', color: 'bg-[#a4ffb9]' },
+                      { id: 'sapphire', name: 'Hyper Sapphire', color: 'bg-[#699cff]' },
+                      { id: 'amethyst', name: 'Amethyst', color: 'bg-[#af88ff]' },
+                      { id: 'amber', name: 'Tactical Amber', color: 'bg-[#ffb26c]' },
+                    ].map(({ id, name, color }) => (
+                      <div
+                        key={id}
+                        onClick={() => setAccent(id)}
+                        className={`p-4 border cursor-pointer flex flex-col items-center justify-center gap-3 transition-all text-center ${
+                          accent === id
+                            ? 'border-primary bg-primary/5'
+                            : 'border-outline-variant hover:border-on-surface-variant bg-surface-container'
+                        }`}
+                      >
+                        <div className={`w-8 h-8 rounded-full ${color} flex items-center justify-center`}>
+                          {accent === id && <span className="material-symbols-outlined text-black text-sm">check</span>}
+                        </div>
+                        <div>
+                          <p className="font-mono text-xs font-bold text-on-surface">{name}</p>
+                        </div>
+                      </div>
+                    ))}
                   </div>
                 </div>
               </div>
