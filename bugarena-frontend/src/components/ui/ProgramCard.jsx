@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom'
 import { useState } from 'react'
+import toast from 'react-hot-toast'
 import { cn } from '../../utils/cn'
+import { toggleBookmark } from '../../api/program.api'
 
 const DIFFICULTY_STYLES = {
   Critical: 'bg-error-container/20 text-error-dim',
@@ -10,6 +12,20 @@ const DIFFICULTY_STYLES = {
 
 export default function ProgramCard({ program, className }) {
   const [bookmarked, setBookmarked] = useState(program?.isBookmarked || false)
+
+  const handleBookmarkToggle = async (e) => {
+    e.preventDefault()
+    e.stopPropagation()
+    try {
+      const prev = bookmarked
+      setBookmarked(!prev)
+      await toggleBookmark(program._id)
+      toast.success(prev ? 'Removed bookmark' : 'Bookmarked target')
+    } catch {
+      toast.error('Failed to update bookmark')
+      setBookmarked(bookmarked)
+    }
+  }
 
   return (
     <div
@@ -28,7 +44,7 @@ export default function ProgramCard({ program, className }) {
             <span className="material-symbols-outlined text-on-surface-variant text-2xl">verified_user</span>
           </div>
           <button
-            onClick={() => setBookmarked(!bookmarked)}
+            onClick={handleBookmarkToggle}
             className="text-outline hover:text-primary transition-colors"
           >
             <span className="material-symbols-outlined">

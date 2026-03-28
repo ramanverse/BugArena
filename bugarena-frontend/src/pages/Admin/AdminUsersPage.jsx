@@ -33,7 +33,7 @@ export default function AdminUsersPage() {
 
   return (
     <div className="flex min-h-screen bg-background">
-      <aside className="hidden md:flex flex-col h-screen w-64 fixed left-0 top-0 z-50 bg-[#0e0e13] border-r border-white/5 font-mono text-sm">
+      <aside className="hidden md:flex flex-col h-screen w-64 fixed left-0 top-0 z-50 bg-surface border-r border-outline-variant/30 font-mono text-sm">
         <div className="p-8 border-b border-white/5">
           <Link to="/" className="flex items-center gap-2">
             <span className="material-symbols-outlined text-primary text-2xl">shield_with_heart</span>

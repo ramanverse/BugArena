@@ -20,7 +20,7 @@ export default function Sidebar() {
   const { level } = getLevelProgress(user?.points || 0)
 
   return (
-    <aside className="hidden md:flex flex-col h-screen w-64 fixed left-0 top-0 z-50 bg-[#0e0e13] border-r border-white/5 font-mono text-sm">
+    <aside className="hidden md:flex flex-col h-screen w-64 fixed left-0 top-0 z-50 bg-surface border-r border-outline-variant/30 font-mono text-sm">
       {/* Top: Avatar + Info */}
       <div className="p-8 flex flex-col items-center border-b border-white/5">
         <div className="relative group cursor-pointer mb-4">
