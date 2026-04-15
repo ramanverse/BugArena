@@ -43,7 +43,14 @@ export default function RegisterPage() {
   const onSubmit = async (data) => {
     setLoading(true)
     try {
-      await registerApi(data)
+      const payload = {
+        fullName: data.name,
+        email: data.email,
+        password: data.password,
+        collegeName: data.college,
+        role: data.role === 'owner' ? 'PROGRAM_OWNER' : 'HUNTER'
+      }
+      await registerApi(payload)
       toast.success('Account initialized. Please login.')
       navigate('/login')
     } catch (err) {
