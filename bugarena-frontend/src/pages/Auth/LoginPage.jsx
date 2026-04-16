@@ -147,6 +147,30 @@ export default function LoginPage() {
               </button>
             </form>
 
+            {/* Test Credentials Set */}
+            <div className="grid grid-cols-2 gap-3 mt-6">
+              <button
+                type="button"
+                className="group flex items-center justify-center bg-surface-container-low border border-outline-variant/20 p-2.5 hover:border-secondary/50 transition-all"
+                onClick={() => {
+                  setValue('email', 'hunter@demo.com')
+                  setValue('password', 'bugarena6')
+                }}
+              >
+                <span className="font-mono text-[10px] uppercase font-bold text-secondary">Demo Hunter</span>
+              </button>
+              <button
+                type="button"
+                className="group flex items-center justify-center bg-surface-container-low border border-outline-variant/20 p-2.5 hover:border-secondary/50 transition-all"
+                onClick={() => {
+                  setValue('email', 'owner@demo.com')
+                  setValue('password', 'bugarena6')
+                }}
+              >
+                <span className="font-mono text-[10px] uppercase font-bold text-secondary">Demo Owner</span>
+              </button>
+            </div>
+
             <p className="mt-6 text-center text-[10px] text-on-surface-variant font-mono">
               No account?{' '}
               <Link to="/register" className="text-secondary hover:underline">

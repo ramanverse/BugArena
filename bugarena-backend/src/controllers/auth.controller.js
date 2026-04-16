@@ -18,7 +18,7 @@ const register = async (req, res, next) => {
     const exists = await User.findOne({ email })
     if (exists) return error(res, 'Email already registered', 409, 'EMAIL_EXISTS')
 
-    const passwordHash = await bcrypt.hash(password, 12)
+    const passwordHash = await bcrypt.hash(password, 8)
     const allowedRoles = ['HUNTER', 'PROGRAM_OWNER']
     const userRole = allowedRoles.includes(role) ? role : 'HUNTER'
 
@@ -146,7 +146,7 @@ const resetPassword = async (req, res, next) => {
 
     if (!user) return error(res, 'Invalid or expired reset token', 400, 'INVALID_RESET_TOKEN')
 
-    user.passwordHash = await bcrypt.hash(password, 12)
+    user.passwordHash = await bcrypt.hash(password, 8)
     user.passwordResetToken = null
     user.passwordResetExpires = null
     user.refreshToken = null
