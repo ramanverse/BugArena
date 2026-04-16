@@ -153,8 +153,8 @@ export default function LoginPage() {
                 type="button"
                 className="group flex items-center justify-center bg-surface-container-low border border-outline-variant/20 p-2.5 hover:border-secondary/50 transition-all"
                 onClick={() => {
-                  setValue('email', 'hunter@demo.com')
-                  setValue('password', 'bugarena6')
+                  setValue('email', 'hunter1@bugarena.com')
+                  setValue('password', 'Hunter@123')
                 }}
               >
                 <span className="font-mono text-[10px] uppercase font-bold text-secondary">Demo Hunter</span>
@@ -163,8 +163,8 @@ export default function LoginPage() {
                 type="button"
                 className="group flex items-center justify-center bg-surface-container-low border border-outline-variant/20 p-2.5 hover:border-secondary/50 transition-all"
                 onClick={() => {
-                  setValue('email', 'owner@demo.com')
-                  setValue('password', 'bugarena6')
+                  setValue('email', 'owner1@bugarena.com')
+                  setValue('password', 'Owner@123')
                 }}
               >
                 <span className="font-mono text-[10px] uppercase font-bold text-secondary">Demo Owner</span>

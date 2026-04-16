@@ -16,7 +16,7 @@ const { calculateLevel } = require('./src/services/badge.service')
 
 const SEVERITY_POINTS = { CRITICAL: 500, HIGH: 300, MEDIUM: 150, LOW: 75, INFO: 25 }
 
-const hash = (pw) => bcrypt.hash(pw, 12)
+const hash = (pw) => bcrypt.hash(pw, 8)
 
 const BADGES = [
   { name: 'First Blood', description: 'Submit your first accepted report', triggerType: 'FIRST_REPORT' },
