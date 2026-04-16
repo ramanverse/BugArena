@@ -105,12 +105,6 @@ export default function RegisterPage() {
 
           {/* Right Panel */}
           <div className="lg:col-span-7 bg-surface-container p-8 md:p-12 relative">
-            {/* Bottom-left decoration */}
-            <div className="absolute bottom-4 left-4 hidden xl:block space-y-1 pointer-events-none">
-              {['// SYS_AUTH_REQUEST_TOKEN: 0x82A1...', '// LATENCY: 24ms', '// STATUS: AWAITING_INPUT'].map((line) => (
-                <p key={line} className="font-mono text-[10px] text-primary/30">{line}</p>
-              ))}
-            </div>
 
             <h2 className="font-headline font-bold text-2xl text-on-surface mb-1">Create Operator Account</h2>
             <p className="text-on-surface-variant font-mono text-xs mb-8 uppercase tracking-widest">
