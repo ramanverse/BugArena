@@ -1,4 +1,4 @@
-import { NavLink, Link } from 'react-router-dom'
+import { NavLink, Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../../hooks/useAuth'
 import Avatar from '../ui/Avatar'
 import LevelBadge from '../ui/LevelBadge'
@@ -15,6 +15,7 @@ const NAV_ITEMS = [
 ]
 
 export default function Sidebar() {
+  const navigate = useNavigate()
   const { user, logout } = useAuth()
   const { level } = getLevelProgress(user?.points || 0)
 
@@ -59,7 +60,10 @@ export default function Sidebar() {
         
         {/* Signout Button */}
         <button
-          onClick={logout}
+          onClick={() => {
+            logout()
+            navigate('/login')
+          }}
           className="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-white/5 hover:text-error hover:translate-x-1 transition-all duration-300 w-full text-left"
         >
           <span className="material-symbols-outlined text-xl">logout</span>

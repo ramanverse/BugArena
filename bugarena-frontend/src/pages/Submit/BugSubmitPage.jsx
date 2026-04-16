@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -8,6 +8,7 @@ import toast from 'react-hot-toast'
 import Sidebar from '../../components/layout/Sidebar'
 import PageTransition from '../../components/layout/PageTransition'
 import { submitReport } from '../../api/report.api'
+import { getPrograms } from '../../api/program.api'
 
 const SEVERITIES = [
   { value: 'CRITICAL', color: 'border-error bg-error-container/10 hover:border-error', label: 'CRITICAL', desc: 'CVSS 9.0+' },
@@ -19,9 +20,8 @@ const SEVERITIES = [
 
 const schema = z.object({
   title: z.string().min(5, 'Title too short'),
-  program: z.string().min(1, 'Select a program'),
+  programId: z.string().min(1, 'Select a program'),
   vulnerabilityType: z.string().min(1, 'Select vuln type'),
-  severity: z.string().min(1, 'Select severity'),
   affectedUrl: z.string().url('Must be a valid URL'),
   cvssScore: z.number().min(0).max(10),
   stepsToReproduce: z.string().min(20, 'Provide detailed steps'),
@@ -33,8 +33,21 @@ export default function BugSubmitPage() {
   const navigate = useNavigate()
   const [step, setStep] = useState(0)
   const [files, setFiles] = useState([])
+  const [programs, setPrograms] = useState([])
   const [selectedSeverity, setSelectedSeverity] = useState('')
   const [loading, setLoading] = useState(false)
+
+  useEffect(() => {
+    const fetchPrograms = async () => {
+      try {
+        const res = await getPrograms({ limit: 100 })
+        setPrograms(res.data.data)
+      } catch (err) {
+        toast.error('Failed to load programs')
+      }
+    }
+    fetchPrograms()
+  }, [])
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop: (accepted) => setFiles((prev) => [...prev, ...accepted]),
@@ -50,9 +63,23 @@ export default function BugSubmitPage() {
   const watchAll = watch()
 
   const onSubmit = async (data) => {
+    if (!selectedSeverity) {
+      toast.error('Please select a severity rating')
+      return
+    }
+
     setLoading(true)
     try {
-      await submitReport({ ...data, severity: selectedSeverity })
+      const formData = new FormData()
+      Object.entries(data).forEach(([key, val]) => {
+        formData.append(key, val)
+      })
+      formData.append('severity', selectedSeverity)
+      files.forEach((file) => {
+        formData.append('screenshots', file)
+      })
+
+      await submitReport(formData)
       toast.success('Report submitted successfully')
       navigate('/reports')
     } catch (err) {
@@ -108,13 +135,13 @@ export default function BugSubmitPage() {
                   </div>
                   <div>
                     <label className="block text-[10px] font-mono text-secondary uppercase tracking-[0.2em] mb-1.5">Target Program</label>
-                    <select className="input-field bg-surface-container-lowest" {...register('program')}>
+                    <select className="input-field bg-surface-container-lowest" {...register('programId')}>
                       <option value="">Select program...</option>
-                      <option value="paypal">PayPal</option>
-                      <option value="github">GitHub</option>
-                      <option value="google">Google</option>
+                      {programs.map((p) => (
+                        <option key={p._id} value={p._id}>{p.name}</option>
+                      ))}
                     </select>
-                    {errors.program && <p className="mt-1 text-error font-mono text-[10px]">{errors.program.message}</p>}
+                    {errors.programId && <p className="mt-1 text-error font-mono text-[10px]">{errors.programId.message}</p>}
                   </div>
                   <div>
                     <label className="block text-[10px] font-mono text-secondary uppercase tracking-[0.2em] mb-1.5">Vulnerability Type</label>
@@ -221,7 +248,10 @@ export default function BugSubmitPage() {
                     <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-secondary mb-4">Submission Preview</p>
                     {[
                       { label: 'Title', val: watchAll.title },
-                      { label: 'Program', val: watchAll.program },
+                      { 
+                        label: 'Program', 
+                        val: programs.find(p => p._id === watchAll.programId)?.name 
+                      },
                       { label: 'Type', val: watchAll.vulnerabilityType },
                       { label: 'Severity', val: selectedSeverity },
                       { label: 'CVSS', val: watchAll.cvssScore },
