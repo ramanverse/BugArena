@@ -45,7 +45,7 @@ export default function LoginPage() {
         localStorage.removeItem('rememberedPassword')
       }
       const res = await loginApi(data)
-      const { user, accessToken } = res.data
+      const { user, accessToken } = res.data.data
       login(user, accessToken)
       toast.success('Authentication successful')
       navigate('/dashboard')
