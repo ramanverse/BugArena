@@ -10,7 +10,7 @@ import { register as registerApi } from '../../api/auth.api'
 const schema = z.object({
   name: z.string().min(2, 'Name required'),
   email: z.string().email('Invalid email'),
-  password: z.string().min(8, 'Min 8 characters'),
+  password: z.string().min(6, 'Min 6 characters'),
   college: z.string().optional(),
   role: z.enum(['hunter', 'owner']),
 })

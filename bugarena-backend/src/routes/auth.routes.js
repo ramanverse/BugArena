@@ -7,7 +7,7 @@ const { authLimiter } = require('../middleware/rateLimiter')
 const registerRules = [
   body('fullName').trim().notEmpty().withMessage('Full name is required'),
   body('email').isEmail().withMessage('Valid email is required').normalizeEmail(),
-  body('password').isLength({ min: 8 }).withMessage('Password must be at least 8 characters'),
+  body('password').isLength({ min: 6 }).withMessage('Password must be at least 6 characters'),
 ]
 
 const loginRules = [
@@ -20,7 +20,7 @@ router.post('/login', authLimiter, loginRules, login)
 router.post('/logout', authenticate, logout)
 router.post('/refresh-token', authLimiter, refreshToken)
 router.post('/forgot-password', authLimiter, body('email').isEmail(), forgotPassword)
-router.post('/reset-password/:token', authLimiter, body('password').isLength({ min: 8 }), resetPassword)
+router.post('/reset-password/:token', authLimiter, body('password').isLength({ min: 6 }), resetPassword)
 router.get('/me', authenticate, getMe)
 
 module.exports = router
