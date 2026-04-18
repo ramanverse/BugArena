@@ -4,7 +4,7 @@ import { useAuth } from '../../hooks/useAuth'
 import useNotificationStore from '../../stores/notificationStore'
 
 export default function Navbar() {
-  const { isAuthenticated } = useAuth()
+  const { isAuthenticated, logout } = useAuth()
   const { unreadCount } = useNotificationStore()
   const [searchVal, setSearchVal] = useState('')
 
@@ -82,12 +82,20 @@ export default function Navbar() {
             <div className="h-6 w-[1px] bg-outline-variant hidden md:block" />
 
             {isAuthenticated ? (
-              <Link
-                to="/dashboard"
-                className="px-4 py-1.5 bg-primary text-on-primary font-bold uppercase tracking-widest text-xs hover:brightness-110 active:scale-95 transition-all font-mono"
-              >
-                Dashboard
-              </Link>
+              <div className="flex items-center gap-3">
+                <button
+                  onClick={() => logout()}
+                  className="px-4 py-1.5 border border-outline text-on-surface-variant hover:text-primary hover:border-primary transition-all font-mono uppercase tracking-widest text-[10px] font-bold"
+                >
+                  Sign Out
+                </button>
+                <Link
+                  to="/dashboard"
+                  className="px-4 py-1.5 bg-primary text-on-primary font-bold uppercase tracking-widest text-xs hover:brightness-110 active:scale-95 transition-all font-mono"
+                >
+                  Dashboard
+                </Link>
+              </div>
             ) : (
               <>
                 <Link

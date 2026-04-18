@@ -59,6 +59,7 @@ export default function LandingPage() {
     staleTime: 60000,
   })
 
+  const { isAuthenticated } = useAuth()
   const stats = statsData?.stats || {}
   const programs = programsData?.programs || []
   const hunters = leaderboardData?.users || []
@@ -100,7 +101,7 @@ export default function LandingPage() {
             <span className="border-r-2 border-primary pr-1 animate-pulse">...</span>
           </div>
 
-          {/* CTA buttons */}
+          {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row items-center gap-4">
             <Link
               to="/register"
@@ -109,15 +110,28 @@ export default function LandingPage() {
               <span className="material-symbols-outlined text-base group-hover:translate-x-1 transition-transform duration-200">terminal</span>
               Start Hunting
             </Link>
-            <Link
-              to="/login"
-              className="px-8 py-3.5 border border-primary text-primary hover:bg-primary/5 font-bold uppercase tracking-widest text-sm transition-all duration-200"
-            >
-              Login to Account
-            </Link>
+            {isAuthenticated ? (
+              <Link
+                to="/dashboard"
+                className="px-8 py-3.5 border border-primary text-primary hover:bg-primary/5 font-bold uppercase tracking-widest text-sm transition-all duration-200"
+              >
+                Go to Dashboard
+              </Link>
+            ) : (
+              <Link
+                to="/login"
+                className="px-8 py-3.5 border border-primary text-primary hover:bg-primary/5 font-bold uppercase tracking-widest text-sm transition-all duration-200"
+              >
+                Login to Account
+              </Link>
+            )}
             <Link
               to="/programs"
               className="px-8 py-3.5 border border-outline-variant text-on-surface hover:bg-white/5 font-bold uppercase tracking-widest text-sm transition-all duration-200"
+            >
+              View Bounties
+            </Link>
+          </div>n-all duration-200"
             >
               View Bounties
             </Link>
