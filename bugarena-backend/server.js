@@ -16,6 +16,7 @@ const programRoutes = require('./src/routes/program.routes')
 const reportRoutes = require('./src/routes/report.routes')
 const leaderboardRoutes = require('./src/routes/leaderboard.routes')
 const uploadRoutes = require('./src/routes/upload.routes')
+const statsRoutes = require('./src/routes/stats.routes')
 const adminRoutes = require('./src/routes/admin.routes')
 
 const app = express()
@@ -63,6 +64,7 @@ app.use('/api/programs', programRoutes)
 app.use('/api/reports', reportRoutes)
 app.use('/api/leaderboard', leaderboardRoutes)
 app.use('/api/uploads', uploadRoutes)
+app.use('/api/stats', statsRoutes)
 app.use('/api/admin', adminRoutes)
 
 // ── 404 ───────────────────────────────────────────────────────

@@ -1,6 +1,6 @@
 import api from './axios'
 
-export const getStats = () => api.get('/admin/stats')
+export const getStats = () => api.get('/stats')
 export const getAdminReports = (params) => api.get('/admin/reports', { params })
 export const getAdminUsers = (params) => api.get('/admin/users', { params })
 export const banUser = (id) => api.patch(`/admin/users/${id}/ban`)

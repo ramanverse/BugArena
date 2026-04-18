@@ -65,7 +65,12 @@ api.interceptors.response.use(
       } catch (refreshError) {
         processQueue(refreshError, null)
         useAuthStore.getState().logout()
-        window.location.href = '/login'
+        
+        // Only redirect if NOT on the landing page
+        if (window.location.pathname !== '/') {
+          window.location.href = '/login'
+        }
+        
         return Promise.reject(refreshError)
       } finally {
         isRefreshing = false
