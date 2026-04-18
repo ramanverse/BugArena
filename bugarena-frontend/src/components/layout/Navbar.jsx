@@ -92,7 +92,7 @@ export default function Navbar() {
               <>
                 <Link
                   to="/login"
-                  className="text-sm text-on-surface-variant hover:text-primary transition-colors font-mono hidden md:block"
+                  className="text-sm text-on-surface-variant hover:text-primary transition-colors font-mono"
                 >
                   Login
                 </Link>

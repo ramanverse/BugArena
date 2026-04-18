@@ -110,6 +110,12 @@ export default function LandingPage() {
               Start Hunting
             </Link>
             <Link
+              to="/login"
+              className="px-8 py-3.5 border border-primary text-primary hover:bg-primary/5 font-bold uppercase tracking-widest text-sm transition-all duration-200"
+            >
+              Login to Account
+            </Link>
+            <Link
               to="/programs"
               className="px-8 py-3.5 border border-outline-variant text-on-surface hover:bg-white/5 font-bold uppercase tracking-widest text-sm transition-all duration-200"
             >

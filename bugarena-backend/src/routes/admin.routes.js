@@ -6,9 +6,8 @@ const {
 const authenticate = require('../middleware/authenticate')
 const authorize = require('../middleware/authorize')
 
-router.use(authenticate, authorize('ADMIN'))
-
 router.get('/stats', getStats)
+router.use(authenticate, authorize('ADMIN'))
 router.get('/reports', getAllReports)
 router.get('/users', getAllUsers)
 router.patch('/users/:id/ban', toggleBanUser)
