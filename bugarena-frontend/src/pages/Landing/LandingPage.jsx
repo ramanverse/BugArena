@@ -1,6 +1,7 @@
-import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { useState, useEffect } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
+import { useAuth } from '../../hooks/useAuth'
 import Navbar from '../../components/layout/Navbar'
 import Footer from '../../components/layout/Footer'
 import PageTransition from '../../components/layout/PageTransition'
@@ -39,7 +40,15 @@ const STEPS = [
 ]
 
 export default function LandingPage() {
+  const navigate = useNavigate()
+  const { isAuthenticated } = useAuth()
   const [openFaq, setOpenFaq] = useState(null)
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate('/dashboard')
+    }
+  }, [isAuthenticated, navigate])
 
   const { data: statsData } = useQuery({
     queryKey: ['admin-stats'],
@@ -59,7 +68,6 @@ export default function LandingPage() {
     staleTime: 60000,
   })
 
-  const { isAuthenticated } = useAuth()
   const stats = statsData?.stats || {}
   const programs = programsData?.programs || []
   const hunters = leaderboardData?.users || []
@@ -110,28 +118,9 @@ export default function LandingPage() {
               <span className="material-symbols-outlined text-base group-hover:translate-x-1 transition-transform duration-200">terminal</span>
               Start Hunting
             </Link>
-            {isAuthenticated ? (
-              <Link
-                to="/dashboard"
-                className="px-8 py-3.5 border border-primary text-primary hover:bg-primary/5 font-bold uppercase tracking-widest text-sm transition-all duration-200"
-              >
-                Go to Dashboard
-              </Link>
-            ) : (
-              <Link
-                to="/login"
-                className="px-8 py-3.5 border border-primary text-primary hover:bg-primary/5 font-bold uppercase tracking-widest text-sm transition-all duration-200"
-              >
-                Login to Account
-              </Link>
-            )}
             <Link
               to="/programs"
               className="px-8 py-3.5 border border-outline-variant text-on-surface hover:bg-white/5 font-bold uppercase tracking-widest text-sm transition-all duration-200"
-            >
-              View Bounties
-            </Link>
-          </div>n-all duration-200"
             >
               View Bounties
             </Link>

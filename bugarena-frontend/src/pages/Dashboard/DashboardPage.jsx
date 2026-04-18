@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
 import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
@@ -30,7 +30,8 @@ const FEED_ICONS = [
 ]
 
 export default function DashboardPage() {
-  const { user } = useAuth()
+  const navigate = useNavigate()
+  const { user, logout } = useAuth()
 
   const { data: meData, isLoading: meLoading } = useQuery({
     queryKey: ['me'],
@@ -101,13 +102,23 @@ export default function DashboardPage() {
                 UID: {stats._id?.slice(-8).toUpperCase() || 'A82F1C03'}
               </div>
             </div>
-            <div className="flex items-center gap-3">
-              <div className="flex -space-x-2">
-                {[0, 1, 2].map((i) => (
-                  <div key={i} className="w-10 h-10 bg-surface-container-high border border-white/10 flex items-center justify-center font-headline font-bold text-xs text-on-surface-variant">
-                    {String.fromCharCode(65 + i)}
-                  </div>
-                ))}
+            <div className="flex items-center gap-4">
+              <div className="flex items-center gap-2 pr-2 border-r border-white/5">
+                <Link
+                  to={`/profile/${user?.username}`}
+                  className="px-3 py-1.5 text-on-surface-variant hover:text-primary transition-all font-mono uppercase tracking-widest text-[10px] font-bold"
+                >
+                  Profile
+                </Link>
+                <button
+                  onClick={() => {
+                    logout()
+                    navigate('/login')
+                  }}
+                  className="px-3 py-1.5 border border-outline text-on-surface-variant hover:text-error hover:border-error transition-all font-mono uppercase tracking-widest text-[10px] font-bold"
+                >
+                  Sign Out
+                </button>
               </div>
               <button className="relative p-2 text-on-surface-variant hover:text-primary transition-colors">
                 <span className="material-symbols-outlined">notifications</span>
