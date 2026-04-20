@@ -225,28 +225,36 @@ export default function LandingPage() {
               {[programs[1], programs[2]].map((p, i) => (
                 <div
                   key={i}
-                  className="bg-surface-container-high p-8 flex flex-col justify-between hover:bg-surface-container-highest transition-all duration-200 group"
+                  className="h-[350px] relative overflow-hidden bg-surface-container-high group border border-white/5"
                 >
-                  <div>
-                    <div className="w-16 h-16 bg-surface-container-highest rounded-sm mb-6 flex items-center justify-center">
-                      <span className="material-symbols-outlined text-on-surface-variant text-2xl">security</span>
+                  <div 
+                    className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
+                    style={{ 
+                      backgroundImage: `url("/images/landing/security-corp-${i + 2}-bg.png")`,
+                    }}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent" />
+                  <div className="absolute inset-0 bg-black/20" />
+                  
+                  <div className="absolute inset-0 p-8 flex flex-col justify-end">
+                    <div className="flex items-center gap-3 mb-2">
+                      <h3 className="font-headline font-bold text-xl text-on-surface">
+                        {p?.name || `Security Corp ${i + 2}`}
+                      </h3>
+                      <span className="text-secondary font-mono text-[8px] font-bold tracking-widest uppercase py-0.5 px-2 bg-secondary/10 border border-secondary/20">
+                        {p?.difficulty || 'Advanced'}
+                      </span>
                     </div>
-                    <h3 className="font-headline font-bold text-xl mb-1 group-hover:text-primary transition-colors">
-                      {p?.name || `Security Corp ${i + 2}`}
-                    </h3>
-                    <span className="inline-flex px-2 py-0.5 font-mono text-[0.6rem] uppercase tracking-tighter bg-secondary/10 text-secondary mb-4">
-                      {p?.difficulty || 'Advanced'}
-                    </span>
-                    <p className="font-mono text-primary font-bold text-sm mb-6">
-                      UP TO ${p?.maxReward ? `${(p.maxReward / 1000).toFixed(0)}k` : '50k'}
+                    <p className="font-mono text-[#a4ffb9] font-bold text-lg mb-6">
+                      UP TO ${p?.maxReward ? (p.maxReward / 1000).toFixed(0) : '50'}k
                     </p>
+                    <Link
+                      to={`/programs/${p?.slug || '#'}`}
+                      className="block w-full py-2.5 text-center border border-outline-variant text-on-surface hover:bg-white/5 font-mono text-[10px] uppercase tracking-widest transition-all"
+                    >
+                      HUNT TARGET
+                    </Link>
                   </div>
-                  <Link
-                    to={`/programs/${p?.slug || '#'}`}
-                    className="block w-full py-2.5 text-center border border-outline-variant text-on-surface hover:bg-white/5 font-mono text-xs uppercase tracking-widest transition-all"
-                  >
-                    HUNT TARGET
-                  </Link>
                 </div>
               ))}
 
@@ -254,28 +262,45 @@ export default function LandingPage() {
               {[programs[3], programs[4]].map((p, i) => (
                 <div
                   key={i + 3}
-                  className="bg-surface-container-high p-8 flex flex-col justify-between hover:bg-surface-container-highest transition-all duration-200 group"
+                  className="h-[350px] relative overflow-hidden bg-surface-container-high group border border-white/5"
                 >
-                  <div>
-                    <div className="w-16 h-16 bg-surface-container-highest rounded-sm mb-6 flex items-center justify-center">
-                      <span className="material-symbols-outlined text-on-surface-variant text-2xl">bug_report</span>
+                  {i === 0 ? (
+                    <div 
+                      className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
+                      style={{ 
+                        backgroundImage: 'url("/images/landing/bounty-target-4-bg.png")',
+                      }}
+                    />
+                  ) : (
+                    <div 
+                      className="absolute inset-0 bg-gradient-to-br from-[#ff5252]/20 via-background to-background transition-transform duration-700 group-hover:scale-110"
+                      style={{ 
+                        background: 'radial-gradient(circle at top left, rgba(255, 82, 82, 0.15), transparent 70%)',
+                      }}
+                    />
+                  )}
+                  <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent" />
+                  <div className="absolute inset-0 bg-black/20" />
+                  
+                  <div className="absolute inset-0 p-8 flex flex-col justify-end">
+                    <div className="flex items-center gap-3 mb-2">
+                      <h3 className="font-headline font-bold text-xl text-on-surface">
+                        {p?.name || `BountyTarget ${i + 4}`}
+                      </h3>
+                      <span className="text-primary font-mono text-[8px] font-bold tracking-widest uppercase py-0.5 px-2 bg-primary/10 border border-primary/20">
+                        {p?.difficulty || 'Entry'}
+                      </span>
                     </div>
-                    <h3 className="font-headline font-bold text-xl mb-1 group-hover:text-primary transition-colors">
-                      {p?.name || `BountyTarget ${i + 4}`}
-                    </h3>
-                    <span className="inline-flex px-2 py-0.5 font-mono text-[0.6rem] uppercase tracking-tighter bg-primary/10 text-primary mb-4">
-                      {p?.difficulty || 'Entry'}
-                    </span>
-                    <p className="font-mono text-primary font-bold text-sm mb-6">
-                      UP TO ${p?.maxReward ? `${(p.maxReward / 1000).toFixed(0)}k` : '25k'}
+                    <p className="font-mono text-[#a4ffb9] font-bold text-lg mb-6">
+                      UP TO ${p?.maxReward ? (p.maxReward / 1000).toFixed(0) : '25'}k
                     </p>
+                    <Link
+                      to={`/programs/${p?.slug || '#'}`}
+                      className="block w-full py-2.5 text-center border border-outline-variant text-on-surface hover:bg-white/5 font-mono text-[10px] uppercase tracking-widest transition-all"
+                    >
+                      HUNT TARGET
+                    </Link>
                   </div>
-                  <Link
-                    to={`/programs/${p?.slug || '#'}`}
-                    className="block w-full py-2.5 text-center border border-outline-variant text-on-surface hover:bg-white/5 font-mono text-xs uppercase tracking-widest transition-all"
-                  >
-                    HUNT TARGET
-                  </Link>
                 </div>
               ))}
 
