@@ -165,30 +165,58 @@ export default function LandingPage() {
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {/* Card 1 — Feature hero */}
-              <div className="md:col-span-2 h-[400px] relative overflow-hidden bg-surface-container-high group">
-                <div
-                  className="absolute inset-0 opacity-20"
-                  style={{ background: 'linear-gradient(135deg, #a4ffb9/10, #af88ff/10)' }}
+              <div className="md:col-span-2 h-[450px] relative overflow-hidden bg-surface-container-high group border border-white/5">
+                <div 
+                  className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
+                  style={{ 
+                    backgroundImage: 'url("/images/landing/techcorp-bg.png")',
+                  }}
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-surface-container-high via-surface-container-high/60 to-transparent" />
-                <div className="absolute bottom-0 left-0 right-0 p-8">
-                  <div className="w-12 h-12 bg-white rounded-sm p-2 mb-4 flex items-center justify-center">
-                    <span className="material-symbols-outlined text-surface-container text-2xl">corporate_fare</span>
+                <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent" />
+                <div className="absolute inset-0 bg-black/40" />
+                
+                <div className="absolute inset-0 p-10 flex flex-col justify-end">
+                  <div className="w-20 h-20 bg-[#121212] rounded-sm p-1 mb-6 flex items-center justify-center border border-white/10 shadow-2xl">
+                    <img 
+                      src="/images/landing/techcorp-logo.png" 
+                      alt="TechCorp Global Logo" 
+                      className="w-full h-full object-contain"
+                    />
                   </div>
-                  <div className="flex items-center gap-3 mb-2">
-                    <h3 className="font-headline font-bold text-2xl text-on-surface">
+                  
+                  <div className="flex items-center gap-3 mb-3">
+                    <h3 className="font-headline font-bold text-3xl text-on-surface tracking-tight">
                       {programs[0]?.name || 'TechCorp Global'}
                     </h3>
-                    <span className="text-primary font-mono text-xs">// TOP TIER PARTNER</span>
-                  </div>
-                  <p className="text-on-surface-variant font-mono text-sm mb-4 max-w-lg">
-                    {programs[0]?.description || 'Enterprise vulnerability disclosure program covering all production assets and customer-facing infrastructure.'}
-                  </p>
-                  <div className="flex items-center gap-6 pt-4 border-t border-white/10">
-                    <span className="font-mono text-primary font-bold text-xl">
-                      UP TO ${programs[0]?.maxReward ? `${(programs[0].maxReward / 1000).toFixed(0)}k` : '100k'}
+                    <span className="text-[#a4ffb9] font-mono text-[10px] font-bold tracking-widest uppercase py-0.5 px-2 bg-[#a4ffb9]/10 border border-[#a4ffb9]/20">
+                      Top Tier Partner
                     </span>
-                    <span className="font-mono text-on-surface-variant text-xs uppercase tracking-widest">Max Bounty</span>
+                  </div>
+                  
+                  <p className="text-on-surface-variant font-mono text-sm mb-8 max-w-xl leading-relaxed">
+                    {programs[0]?.description || 'Enterprise vulnerability disclosure program covering all production assets and customer-facing infrastructure. Focus on edge computing vulnerabilities and data isolation leaks.'}
+                  </p>
+                  
+                  <div className="flex items-center gap-12 pt-6 border-t border-white/10">
+                    <div>
+                      <div className="font-mono text-[#a4ffb9] font-bold text-2xl tracking-tight">
+                        UP TO ${programs[0]?.maxReward ? (programs[0].maxReward).toLocaleString() : '100,000'}
+                      </div>
+                      <div className="font-mono text-on-surface-variant text-[10px] uppercase tracking-[0.2em] mt-1">
+                        Max Critical Bounty
+                      </div>
+                    </div>
+                    
+                    <div className="w-px h-10 bg-white/5" />
+                    
+                    <div>
+                      <div className="font-mono text-on-surface font-bold text-2xl tracking-tight">
+                        24H
+                      </div>
+                      <div className="font-mono text-on-surface-variant text-[10px] uppercase tracking-[0.2em] mt-1">
+                        Avg Response
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
