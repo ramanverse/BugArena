@@ -5,6 +5,7 @@ import { useAuth } from '../../hooks/useAuth'
 import Navbar from '../../components/layout/Navbar'
 import Footer from '../../components/layout/Footer'
 import PageTransition from '../../components/layout/PageTransition'
+import Avatar from '../../components/ui/Avatar'
 import { getStats } from '../../api/admin.api'
 import { getPrograms } from '../../api/program.api'
 import { getLeaderboard } from '../../api/leaderboard.api'
@@ -412,19 +413,16 @@ export default function LandingPage() {
                   key={i}
                   className="bg-surface-dim p-8 space-y-4 group cursor-pointer hover:bg-surface-container transition-colors"
                 >
-                  <div className="relative inline-block">
-                    {i === 0 ? (
-                      <>
-                        <div className="absolute inset-0 bg-primary/20 blur-md group-hover:blur-xl transition-all duration-500 rounded-full" />
-                        <div className="relative w-20 h-20 rounded-full border-2 border-primary bg-surface-container-high flex items-center justify-center font-headline font-bold text-2xl text-primary">
-                          {hunter?.name?.[0] || 'A'}
-                        </div>
-                      </>
-                    ) : (
-                      <div className="w-16 h-16 rounded-full border-2 border-outline-variant bg-surface-container-high flex items-center justify-center font-headline font-bold text-xl text-on-surface-variant grayscale group-hover:grayscale-0 transition-all">
-                        {hunter?.name?.[0] || String.fromCharCode(65 + i)}
-                      </div>
+                  <div className="relative inline-block mb-4">
+                    {i === 0 && (
+                      <div className="absolute inset-0 bg-primary/20 blur-md group-hover:blur-xl transition-all duration-500 rounded-xl" />
                     )}
+                    <Avatar
+                      name={hunter?.name || `Hunter_${String.fromCharCode(65 + i)}`}
+                      src={`/images/avatars/hunter${i + 1}.jpg`}
+                      size={i === 0 ? 'xl' : 'lg'}
+                      className={i === 0 ? 'border-2 border-primary' : 'border-2 border-outline-variant grayscale group-hover:grayscale-0 transition-all'}
+                    />
                   </div>
 
                   <div>
