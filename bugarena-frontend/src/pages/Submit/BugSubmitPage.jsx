@@ -7,6 +7,7 @@ import { useDropzone } from 'react-dropzone'
 import toast from 'react-hot-toast'
 import Sidebar from '../../components/layout/Sidebar'
 import PageTransition from '../../components/layout/PageTransition'
+import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { submitReport } from '../../api/report.api'
 import { getPrograms } from '../../api/program.api'
 
@@ -31,6 +32,7 @@ const schema = z.object({
 
 export default function BugSubmitPage() {
   const navigate = useNavigate()
+  const queryClient = useQueryClient()
   const [step, setStep] = useState(0)
   const [files, setFiles] = useState([])
   const [programs, setPrograms] = useState([])
@@ -55,7 +57,7 @@ export default function BugSubmitPage() {
     maxFiles: 10,
   })
 
-  const { register, handleSubmit, watch, formState: { errors } } = useForm({
+  const { register, handleSubmit, watch, trigger, formState: { errors } } = useForm({
     resolver: zodResolver(schema),
     defaultValues: { cvssScore: 5 },
   })
@@ -79,9 +81,16 @@ export default function BugSubmitPage() {
         formData.append('screenshots', file)
       })
 
-      await submitReport(formData)
+      const res = await submitReport(formData)
+      await queryClient.invalidateQueries({ queryKey: ['my-reports-full'] })
       toast.success('Report submitted successfully')
-      navigate('/reports')
+      
+      const reportId = res.data?.report?._id || res.data?._id
+      if (reportId) {
+        navigate(`/reports/${reportId}`)
+      } else {
+        navigate('/reports')
+      }
     } catch (err) {
       toast.error(err?.response?.data?.message || 'Submission failed')
     } finally {
@@ -280,7 +289,20 @@ export default function BugSubmitPage() {
                 {step < 2 ? (
                   <button
                     type="button"
-                    onClick={() => setStep(step + 1)}
+                    onClick={async () => {
+                      const fields = step === 0 
+                        ? ['title', 'programId', 'vulnerabilityType'] 
+                        : ['affectedUrl', 'stepsToReproduce', 'impactDescription']
+                      
+                      const isValid = await trigger(fields)
+                      if (isValid) {
+                        if (step === 0 && !selectedSeverity) {
+                          toast.error('Please select a severity rating')
+                          return
+                        }
+                        setStep(step + 1)
+                      }
+                    }}
                     className="px-6 py-2.5 bg-primary text-on-primary font-bold uppercase tracking-widest text-xs hover:brightness-110 active:scale-95 transition-all"
                   >
                     Next Step
