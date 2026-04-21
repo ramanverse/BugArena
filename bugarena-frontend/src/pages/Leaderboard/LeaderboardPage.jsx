@@ -61,18 +61,26 @@ export default function LeaderboardPage() {
               const user = topThree[podiumIdx]
               const style = PODIUM_STYLES[podiumIdx]
               return (
-                <div key={podiumIdx} className={`p-6 border ${style.border} ${style.bg} text-center ${podiumIdx === 0 ? 'md:-mt-4' : ''}`}>
+                <div 
+                  key={podiumIdx} 
+                  className={`p-6 border ${style.border} ${style.bg} text-center transition-all duration-500 hover:scale-[1.02] relative ${podiumIdx === 0 ? 'md:-mt-8 shadow-[0_0_50px_rgba(var(--primary-rgb),0.15)] z-10' : ''}`}
+                >
+                  {podiumIdx === 0 && (
+                    <div className="absolute inset-x-0 -top-12 flex justify-center">
+                      <div className="w-24 h-24 bg-primary/20 blur-3xl" />
+                    </div>
+                  )}
                   <div className="font-mono text-4xl font-bold mb-3 opacity-20">{podiumIdx + 1 === 1 ? '#1' : podiumIdx + 1 === 2 ? '#2' : '#3'}</div>
                   <Avatar
-                    name={user?.name || '?'}
+                    name={user?.name || `Hunter ${podiumIdx === 0 ? 1 : podiumIdx === 1 ? 2 : 3}`}
                     src={`/images/avatars/hunter${podiumIdx === 0 ? 1 : podiumIdx === 1 ? 2 : 3}.jpg`}
                     size={podiumIdx === 0 ? 'xl' : 'lg'}
-                    className="mx-auto mb-3 border-2 border-current"
+                    className={`mx-auto mb-3 border-2 ${podiumIdx === 0 ? 'border-primary shadow-[0_0_20px_rgba(var(--primary-rgb),0.3)]' : 'border-white/10'}`}
                   />
-                  <h3 className="font-headline font-bold text-lg text-on-surface">{user?.name || `Hunter ${podiumIdx + 1}`}</h3>
+                  <h3 className="font-headline font-bold text-lg text-on-surface tracking-tight">{user?.name || `Hunter ${podiumIdx === 0 ? 1 : podiumIdx === 1 ? 2 : 3}`}</h3>
                   <LevelBadge level={user?.level || 'ELITE'} className="justify-center mt-1 mb-3" />
-                  <p className={`font-mono text-xl font-bold ${style.rankColor}`}>
-                    ${user?.totalBounties ? (user.totalBounties / 1000).toFixed(1) + 'k' : `${(3 - podiumIdx) * 45}k`}
+                  <p className={`font-mono text-xl font-bold tracking-tighter ${style.rankColor}`}>
+                    ${user?.totalBounties ? (user.totalBounties / 1000).toFixed(1) + 'k' : `${podiumIdx === 0 ? '135' : podiumIdx === 1 ? '90' : '45'}k`}
                   </p>
                 </div>
               )

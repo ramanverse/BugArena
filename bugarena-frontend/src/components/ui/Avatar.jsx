@@ -20,7 +20,7 @@ export default function Avatar({ src, name = '?', size = 'md', className }) {
       <img
         src={src}
         alt={name}
-        className={cn(sizeClasses[size] || sizeClasses.md, 'object-cover', className)}
+        className={cn(sizeClasses[size] || sizeClasses.md, 'object-cover rounded-xl border border-white/10 shadow-lg', className)}
       />
     )
   }
