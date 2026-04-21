@@ -265,21 +265,12 @@ export default function LandingPage() {
                   key={i + 3}
                   className="h-[350px] relative overflow-hidden bg-surface-container-high group border border-white/5"
                 >
-                  {i === 0 ? (
-                    <div 
-                      className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
-                      style={{ 
-                        backgroundImage: 'url("/images/landing/bounty-target-4-bg.png")',
-                      }}
-                    />
-                  ) : (
-                    <div 
-                      className="absolute inset-0 bg-gradient-to-br from-[#ff5252]/20 via-background to-background transition-transform duration-700 group-hover:scale-110"
-                      style={{ 
-                        background: 'radial-gradient(circle at top left, rgba(255, 82, 82, 0.15), transparent 70%)',
-                      }}
-                    />
-                  )}
+                  <div 
+                    className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
+                    style={{ 
+                      backgroundImage: `url("/images/landing/bounty-target-${i + 4}-bg.png")`,
+                    }}
+                  />
                   <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent" />
                   <div className="absolute inset-0 bg-black/20" />
                   
