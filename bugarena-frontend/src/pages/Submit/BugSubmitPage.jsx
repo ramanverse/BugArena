@@ -20,14 +20,14 @@ const SEVERITIES = [
 ]
 
 const schema = z.object({
-  title: z.string().min(5, 'Title too short'),
+  title: z.string().min(1, 'Title is required'),
   programId: z.string().min(1, 'Select a program'),
   vulnerabilityType: z.string().min(1, 'Select vuln type'),
-  affectedUrl: z.string().url('Must be a valid URL'),
+  affectedUrl: z.string().min(1, 'URL or target is required'),
   cvssScore: z.number().min(0).max(10),
-  stepsToReproduce: z.string().min(20, 'Provide detailed steps'),
-  impactDescription: z.string().min(10, 'Describe the impact'),
-  pocVideoUrl: z.string().url('Must be a valid URL').optional().or(z.literal('')),
+  stepsToReproduce: z.string().min(1, 'Provide steps'),
+  impactDescription: z.string().min(1, 'Describe the impact'),
+  pocVideoUrl: z.string().optional().or(z.literal('')),
 })
 
 export default function BugSubmitPage() {
