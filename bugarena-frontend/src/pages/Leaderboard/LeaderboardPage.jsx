@@ -63,7 +63,12 @@ export default function LeaderboardPage() {
               return (
                 <div key={podiumIdx} className={`p-6 border ${style.border} ${style.bg} text-center ${podiumIdx === 0 ? 'md:-mt-4' : ''}`}>
                   <div className="font-mono text-4xl font-bold mb-3 opacity-20">{podiumIdx + 1 === 1 ? '#1' : podiumIdx + 1 === 2 ? '#2' : '#3'}</div>
-                  <Avatar name={user?.name || '?'} size={podiumIdx === 0 ? 'xl' : 'lg'} className="mx-auto mb-3 border-2 border-current" />
+                  <Avatar
+                    name={user?.name || '?'}
+                    src={`/images/avatars/hunter${podiumIdx === 0 ? 1 : podiumIdx === 1 ? 2 : 3}.jpg`}
+                    size={podiumIdx === 0 ? 'xl' : 'lg'}
+                    className="mx-auto mb-3 border-2 border-current"
+                  />
                   <h3 className="font-headline font-bold text-lg text-on-surface">{user?.name || `Hunter ${podiumIdx + 1}`}</h3>
                   <LevelBadge level={user?.level || 'ELITE'} className="justify-center mt-1 mb-3" />
                   <p className={`font-mono text-xl font-bold ${style.rankColor}`}>
