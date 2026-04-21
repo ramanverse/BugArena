@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import Sidebar from '../../components/layout/Sidebar'
 import PageTransition from '../../components/layout/PageTransition'
 import ReportCard from '../../components/ui/ReportCard'
@@ -8,6 +8,7 @@ import EmptyState from '../../components/ui/EmptyState'
 import { getReports } from '../../api/report.api'
 
 export default function MyReportsPage() {
+  const navigate = useNavigate()
   const { data, isLoading } = useQuery({
     queryKey: ['my-reports-full'],
     queryFn: () => getReports().then((r) => r.data),
@@ -43,7 +44,12 @@ export default function MyReportsPage() {
               <SkeletonLoader variant="row" count={6} />
             </div>
           ) : reports.length === 0 ? (
-            <EmptyState icon="description" message="No reports submitted yet" cta="Submit Your First Report" />
+            <EmptyState 
+              icon="description" 
+              message="No reports submitted yet" 
+              cta="Submit Your First Report" 
+              onCta={() => navigate('/submit')}
+            />
           ) : (
             <div className="space-y-4">
               {reports.map((r) => <ReportCard key={r._id} report={r} />)}
