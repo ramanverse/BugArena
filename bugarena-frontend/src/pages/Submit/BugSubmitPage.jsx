@@ -98,6 +98,13 @@ export default function BugSubmitPage() {
     }
   }
 
+  const onInvalid = (errors) => {
+    const firstError = Object.values(errors)[0]
+    if (firstError) {
+      toast.error(firstError.message || 'Please check the form for errors')
+    }
+  }
+
   const STEPS_LABELS = ['Target & Severity', 'Vulnerability Details', 'Evidence & Submit']
 
   return (
@@ -133,7 +140,7 @@ export default function BugSubmitPage() {
               </div>
             </div>
 
-            <form onSubmit={handleSubmit(onSubmit)}>
+            <form onSubmit={handleSubmit(onSubmit, onInvalid)}>
               {/* Step 0 */}
               {step === 0 && (
                 <div className="space-y-6">
